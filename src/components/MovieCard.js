@@ -40,7 +40,7 @@ class MovieCard extends React.Component {
   }
   
   render() {
-    const { id, title, year, image, overview, deleteMovie, poster_path } = this.props;
+    const { id, title, year, image, overview, deleteMovie, poster_path, genre } = this.props;
     return <div className='movie-container'>   
         <div className='favourite-container'>
             <button onClick={this.handleCheck} className='favourite-button'>
@@ -55,6 +55,9 @@ class MovieCard extends React.Component {
       <div className='overview-container'>
         <img className='overview-img' src={`https://image.tmdb.org/t/p/original` + poster_path} alt='Movie' />
         <p>{overview}</p>
+      </div>
+      <div>
+        <p>{genre}</p>
       </div>
     </div>
     }
