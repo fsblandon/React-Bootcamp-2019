@@ -4,6 +4,7 @@ import MainLayout from '../layouts/MainLayout'
 import MovieCard from '../components/MovieCard'
 import MovieForm from '../components/MovieForm';
 import MovieFilter from '../components/MovieFilter.js';
+import { AuthContext } from '../enhancers/AuthContext'
 
 
 const API_KEY = '06ced2305eaef2fd6deb916ee2da825f';
@@ -12,7 +13,6 @@ const url = 'https://api.themoviedb.org/3';
 
 //import withAuth from '../enhancers/withAuth'
 //import AuthProvider from '../enhancers/AuthProvider.js';
-import { AuthContext } from '../enhancers/AuthContext'
 
 const WelcomeText = ({ isAuth, name }) =>
   <div style={{ fontSize: '3em', color: 'white'}}>
