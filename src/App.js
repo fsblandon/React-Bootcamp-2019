@@ -1,28 +1,33 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+
+import { Provider } from 'react-redux'
+import configureStore from './store/configureStore'
 
 import './App.css';
-import Home from './views/Home'
+import Home from './containers/Home'
+import Movie from './views/Movie'
 import MovieForm from './components/MovieForm'
-
-function authUser() {
-    return { isAuth: true }
-}
+import { AuthProvider } from './enhancers/AuthContext'
 
 function Routes () {
-    const userAuth = authUser()
     return <React.Fragment> 
-    <Route exact path="/" component={Home} />
-    <Route exact path="/add" component={MovieForm} />
-    <Route path="/movie/:id/:name" component={MovieForm} />
-    <Route component={() => <div>Not Found</div>} />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/add" component={MovieForm} />
+        <Route exact path="/movie/:id" component={Movie} />
     </React.Fragment>
 }
 
+const store = configureStore()
+
 function App () {
-    return <Router>
-        <Routes />
-    </Router>
+    return  <Provider store={store}>
+        <AuthProvider value={{isAuth: true, name: 'leo'}}>
+        <Router>
+            <Routes />
+        </Router>
+        </AuthProvider>
+    </Provider>
 }
 
 export default App

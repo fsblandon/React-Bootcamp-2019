@@ -1,6 +1,4 @@
 import React from 'react';
-import moviesData from '../data/movies.json'
-
 
 import MainLayout from '../layouts/MainLayout'
 import MovieCard from '../components/MovieCard'
@@ -12,19 +10,21 @@ const API_KEY = '06ced2305eaef2fd6deb916ee2da825f';
 const axios = require('axios');
 const url = 'https://api.themoviedb.org/3';
 
+//import withAuth from '../enhancers/withAuth'
+//import AuthProvider from '../enhancers/AuthProvider.js';
+import { AuthContext } from '../enhancers/AuthContext'
+
+const WelcomeText = ({ isAuth, name }) =>
+  <div style={{ fontSize: '3em', color: 'white'}}>
+    {isAuth ? `Bienvenido a casa ${name}` : 'Go away'}
+  </div>
+
 class Home extends React.Component {
   state = {
-    ...moviesData
+   //...moviesData,
   }
-  movieDetail = {};
 
-  addMovie = (movie) => {
-    const movies = this.state.movies;
-    movies.push(movie)
-    this.setState({
-      movies
-    });
-  }
+  static contextType = AuthContext
 
   addMovie = (movie) => {
     this.setState({ movies: [ ...this.state.movies, movie ] })
@@ -50,12 +50,16 @@ class Home extends React.Component {
   }
 
     render() {
-        const { movies } = this.state
-        return <MainLayout>
-          {movies.map((movie) => 
-           <MovieCard deleteMovie={this.deleteMovie} key={movie.id} {...movie} />
-          )}
-        </MainLayout>
+        const { movies } = this.props
+        return <div>
+          <button onClick={this.props.requestMovies}>Fetch Movies</button>
+          <WelcomeText isAuth={this.context.isAuth} name={this.context.name} />
+          <MainLayout>
+            {movies.map((movie) => 
+            <MovieCard deleteMovie={this.deleteMovie} key={movie.id} {...movie} />
+            )}
+          </MainLayout>
+          </div>
     }
 }
 

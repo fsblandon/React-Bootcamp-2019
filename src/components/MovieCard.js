@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 class MovieCard extends React.Component {
   state = {
@@ -56,9 +57,7 @@ class MovieCard extends React.Component {
         <img className='overview-img' src={`https://image.tmdb.org/t/p/original` + poster_path} alt='Movie' />
         <p>{overview}</p>
       </div>
-      <div>
-        <p>{genre}</p>
-      </div>
+      <Link to={`/movie/${id}`}>Get Detail</Link>
     </div>
     }
 }
